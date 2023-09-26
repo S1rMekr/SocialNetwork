@@ -1,0 +1,14 @@
+{% extends 'myPage/base.html' %}
+{% block content %}
+    {% if users %}
+        <ul>
+            {% for user in users  %}
+            {% if not user.is_superuser %}
+                <li><a href="{% url 'myPage:profile' user.id %}"> {{ user.first_name }} {{ user.last_name }} </a></li>
+            {% endif %}
+                
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endblock content %}
