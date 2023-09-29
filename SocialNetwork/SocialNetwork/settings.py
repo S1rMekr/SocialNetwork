@@ -139,3 +139,6 @@ LOGOUT_REDIRECT_URL = "/"
 
 AUTH_USER_MODEL = 'myPage.CustomUser'
 
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = []
