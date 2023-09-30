@@ -30,7 +30,7 @@ class ProfileView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.get_object()
-        context['post'] = PostModel.objects.filter(author=user)
+        context['post'] = PostModel.objects.filter(author=user).order_by('-created_on')
         return context
 
         
