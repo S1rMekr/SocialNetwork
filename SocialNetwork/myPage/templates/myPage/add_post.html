@@ -1,0 +1,9 @@
+{% extends 'myPage/base.html' %}
+{% block content %}
+    <form method="POST" class="form-group" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" class="btn btn-success">Создать пост</button>
+        {{form.errors}}
+    </form>
+{% endblock content %}

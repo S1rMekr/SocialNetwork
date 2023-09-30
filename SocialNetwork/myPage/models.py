@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 # Create your models here.
 
+# The model of custom user manager
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -21,6 +22,8 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(email, password, **extra_fields)
 
+
+# The model of custom user
 class CustomUser(AbstractBaseUser):
     
     '''Model definition for ModelName.'''
@@ -28,7 +31,7 @@ class CustomUser(AbstractBaseUser):
     last_name = models.CharField(max_length=50,verbose_name='Фамилия')
     email = models.EmailField(unique=True,verbose_name='Электронная почта')
     birth_date = models.DateField(default=date(2000, 1, 1), verbose_name='Дата рождения')
-    profile_image = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name='Фотография профиля')
+    profile_image = models.ImageField(blank=True, upload_to="photos/%Y/%m/%d/", verbose_name='Фотография профиля')
     country = CountryField(blank_label="(select country)", blank=True, verbose_name='Страна')
     is_superuser = models.BooleanField(default=False,verbose_name='Суперюзер?')
     is_staff = models.BooleanField(default=False,verbose_name='Стафф?')
@@ -55,11 +58,12 @@ class CustomUser(AbstractBaseUser):
     
 
     
-
+# The model of post
 class PostModel(models.Model):
     '''Model definition for ModelName.'''
     title = models.CharField(max_length=255)
     content = models.TextField()
+    picture = models.ImageField(blank=True, upload_to="photos/%Y/%m/%d/", verbose_name='Фото поста')
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)

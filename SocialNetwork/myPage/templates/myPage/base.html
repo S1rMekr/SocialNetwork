@@ -4,33 +4,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>lala</title>
+    <title>{% block title %}
+    {% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'myPage/styles/style2.css' %}" />
   </head>
   <body>
     <header>
-      <h1>SOCIAL NETWORK</h1>
+      <h1><a href="{% url 'myPage:home' %}">SOCIAL NETWORK</a></h1>
       <!-- LOGO -->
       <nav>
         <ul>
           {% if user.is_superuser %}
-          <li><a href="admin/">Admin</a></li>
-          {% endif %} {% if request.user.is_authenticated %}
+          <li><a href="{% url 'admin:index' %}">Admin</a></li>
+          {% endif %} 
+          {% if request.user.is_authenticated %}
           <li>
-            <a href="{% url 'myPage:profile' user.id %}"><i></i>Домой</a>
-          </li>
-          <li>
-            <a href="{% url 'myPage:profile' user.id %}"
-              >{{ user.first_name }} {{ user.last_name }}</a
+            <a href="{% url 'myPage:profile' request.user.id %}"
+              >{{ request.user.first_name }} {{ request.user.last_name }}</a
             >
           </li>
+          <li><a href="{% url 'myPage:settings' user.id %}">Настройки</a></li>
           <li><a href="{% url 'register_app:logout' %}">Выйти</a></li>
           {% else %}
           <li><a href="{% url 'myPage:home' %}">Домой</a></li>
           <li>
             <a href="{% url 'register_app:register' %}">Зарегистрироваться</a>
           </li>
-          <li><a href="{% url 'register_app:login' %}"> Войти </a></li>
+          <li><a href="{% url 'register_app:login'  %}"> Войти </a></li>
           {% endif %}
         </ul>
       </nav>

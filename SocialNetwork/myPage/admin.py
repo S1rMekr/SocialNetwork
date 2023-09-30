@@ -15,3 +15,4 @@ class CustomUserAdmin(admin.ModelAdmin):
     )
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.register(PostModel)

@@ -4,19 +4,9 @@ from django.contrib.auth.forms import UserCreationForm, User, AuthenticationForm
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
-# class AddPostForm(forms.ModelForm):
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-
-#     class Meta:
-#         model = PostModel
-#         fields = ['title',  'content', 'picture']
-#         widgets = {
-#             'title': forms.TextInput(attrs={'class': 'form-input'}),
-#             'content': forms.TextInput(attrs={'class': 'content-input'}),
-#         }
 
 
+# A form to create a custom user
 class RegisterUserForm(UserCreationForm):
     first_name = forms.CharField(
         label='Имя', widget=forms.TextInput(attrs={'class': 'form-input'}))
@@ -43,6 +33,7 @@ class RegisterUserForm(UserCreationForm):
         }
 
 
+# A form to login the user
 class LoginUserForm(AuthenticationForm):
     password = forms.CharField(
         label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
