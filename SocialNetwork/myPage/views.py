@@ -3,9 +3,8 @@ from django.db import models
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
-from django.http import HttpResponse
-from myPage.models import CustomUser, PostModel
-from django.shortcuts import render
+from django.http import Http404, HttpResponse
+from myPage.models import PostModel
 from .forms import *
 
 
@@ -56,3 +55,34 @@ class UserSettings(generic.edit.UpdateView):
     
     def get_success_url(self):
         return reverse_lazy('myPage:profile', kwargs={'pk': self.object.pk})
+    
+
+def deleteView(request,pk):
+    ddata=PostModel.objects.get(id=pk)
+    ddata.delete()
+    return redirect('myPage:profile', request.user.id)
+
+
+def updateView(request, pk):
+    context = {}
+    obj = get_object_or_404(PostModel, pk=pk)
+    form= AddPostForm(request.POST or None, request.FILES, instance= obj)
+    if form.is_valid():
+        form.save()
+        return redirect('myPage:profile', request.user.id)
+    context['form']=form
+    return render(request, 'myPage/post_settings.html', context)
+    
+# class PostSettings(generic.edit.UpdateView):
+#     model = PostModel
+#     form_class = AddPostForm
+#     template_name = 'myPage/post_settings.html'
+
+#     def get_object(self, queryset=None):
+#         obj = super().get_object(queryset=queryset)
+#         if obj.author.id != self.request.user.id:
+#             raise Http404
+#         return obj
+    
+#     def get_success_url(self):
+#         return reverse_lazy('myPage:profile', kwargs={'pk': self.object.pk})

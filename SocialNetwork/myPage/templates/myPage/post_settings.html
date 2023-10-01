@@ -1,0 +1,17 @@
+{% extends 'myPage/base.html' %}
+
+{% block content %}
+
+  <!-- Create a Form -->
+  <form method="post" enctype="multipart/form-data">
+      <!-- Security token by Django -->
+      {% csrf_token %}
+
+      <!-- form as paragraph -->
+      {{ form.as_p }}
+
+      <button type="submit">Изменить</button>
+  </form>
+
+  
+{% endblock content %}

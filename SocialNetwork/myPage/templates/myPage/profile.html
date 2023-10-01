@@ -1,16 +1,15 @@
 {% extends 'myPage/base.html' %}
 
 {% block content %}
-    {% if user %}
+    {% if request.user.is_authenticated %}
          <h1> {{ user.first_name }} {{ user.last_name }} {{ user.birth_date }} {{ user.country.name }}</h1>
          {% if user.profile_image %}
             <img style="height: 10rem; width: 10rem;" src="{{user.profile_image.url}}" alt="">
          {% endif %}
-         {% if request.user.is_authenticated %}
-         <a href="{% url 'myPage:add_post' user.id %}">Добавить пост</a>    
-        {% endif %}
+    {% if request.user.id == user.id %}
+        <a href="{% url 'myPage:add_post' request.user.id %}">Добавить пост</a>
+    {% endif %}
     {% if post %}
-
         {% for p in post  %}
             <ul>
                 <li>{{p.title}}</li>
@@ -18,9 +17,18 @@
                 {% if p.picture %}
                 <li><img style="height: 10rem; width: 10rem;" src="{{p.picture.url}}" alt=""></li>
                 {% endif %}
-                
+                <li>{{p.created_on}}</li>
+                {{p.author.id}}
+                {% if request.user.id == user.id %}
+                <li><a href="{% url 'myPage:update_post' pk=p.pk %}">Редактировать</a></li>
+                <li><form name="DeleteForm" action="{% url 'myPage:delete' pk=p.pk %}" method="post">
+                {% csrf_token %}
+                    <input type="submit" value="Delete">
+                </form></li>
+                {% endif %}
             </ul>
         {% endfor %}
     {% endif %}
+    {% else %} <h1>Авторизируйтесь, чтобы увидеть больше</h1>
     {% endif %}
 {% endblock content %}
