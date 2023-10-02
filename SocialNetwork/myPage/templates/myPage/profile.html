@@ -18,7 +18,7 @@
                 <li><img style="height: 10rem; width: 10rem;" src="{{p.picture.url}}" alt=""></li>
                 {% endif %}
                 <li>{{p.created_on}}</li>
-                {{p.author.id}}
+
                 {% if request.user.id == user.id %}
                 <li><a href="{% url 'myPage:update_post' pk=p.pk %}">Редактировать</a></li>
                 <li><form name="DeleteForm" action="{% url 'myPage:delete' pk=p.pk %}" method="post">

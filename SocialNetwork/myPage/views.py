@@ -73,16 +73,3 @@ def updateView(request, pk):
     context['form']=form
     return render(request, 'myPage/post_settings.html', context)
     
-# class PostSettings(generic.edit.UpdateView):
-#     model = PostModel
-#     form_class = AddPostForm
-#     template_name = 'myPage/post_settings.html'
-
-#     def get_object(self, queryset=None):
-#         obj = super().get_object(queryset=queryset)
-#         if obj.author.id != self.request.user.id:
-#             raise Http404
-#         return obj
-    
-#     def get_success_url(self):
-#         return reverse_lazy('myPage:profile', kwargs={'pk': self.object.pk})
