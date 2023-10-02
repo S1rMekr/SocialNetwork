@@ -4,33 +4,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}
-    {% endblock title %}</title>
+    <title>{% block title %} {% endblock title %}</title>
     <link rel="stylesheet" href="{% static 'myPage/styles/style2.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer" />
   </head>
   <body>
     <header>
       <h1><a href="{% url 'myPage:home' %}">SOCIAL NETWORK</a></h1>
       <!-- LOGO -->
       <nav>
-        <ul>
+        <ul class="navBar">
           {% if user.is_superuser %}
-          <li><a href="{% url 'admin:index' %}">Admin</a></li>
-          {% endif %} 
-          {% if request.user.is_authenticated %}
-          <li>
+          <li class="navList"><a href="{% url 'admin:index' %}">Admin</a></li>
+          {% endif %} {% if request.user.is_authenticated %}
+          <li class="navList">
             <a href="{% url 'myPage:profile' request.user.id %}"
               >{{ request.user.first_name }} {{ request.user.last_name }}</a
             >
           </li>
-          <li><a href="{% url 'myPage:settings' user.id %}">Настройки</a></li>
-          <li><a href="{% url 'register_app:logout' %}">Выйти</a></li>
-          {% else %}
-          <li><a href="{% url 'myPage:home' %}">Домой</a></li>
-          <li>
-            <a href="{% url 'register_app:register' %}">Зарегистрироваться</a>
+          <li class="navList">
+            <a href="{% url 'myPage:settings' user.id %}">Настройки</a>
           </li>
-          <li><a href="{% url 'register_app:login'  %}"> Войти </a></li>
+          <li class="navList">
+            <a href="{% url 'register_app:logout' %}">Выйти</a>
+          </li>
+          {% else %}
+          <li class="navList">
+            <i class="fa-solid fa-hotel"></i
+            ><a href="{% url 'myPage:home' %}">Домой</a>
+          </li>
+          <li class="navList">
+            <i class="fa-solid fa-address-card"></i>
+            <a href="{% url 'register_app:register' %}">Регистрация</a>
+          </li>
+          <li class="navList">
+            <i class="fa-solid fa-door-closed"></i
+            ><a href="{% url 'register_app:login'  %}"> Вход </a>
+          </li>
           {% endif %}
         </ul>
       </nav>

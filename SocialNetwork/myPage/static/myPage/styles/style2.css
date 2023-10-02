@@ -1,12 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans&family=Poppins:wght@300;600;700&display=swap');
 
 * {
-  width: 100vw;
+  width: 100%;
   font-family: 'Montserrat', sans-serif;
+  overflow: hidden;
   margin: 0;
   padding: 0;
 }
 body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background-color: blanchedalmond;
 }
 header {
@@ -21,12 +25,17 @@ nav {
   font-weight: 600;
 }
 
-ul {
+.navBar {
   display: flex;
   flex-direction: row;
+  justify-content: flex-end;
   text-align: center;
   list-style: none;
   padding: 0.5rem 0rem;
+}
+.navList {
+  width: fit-content;
+  padding: 0 1.5rem;
 }
 
 a {
@@ -44,4 +53,34 @@ h1 {
   font-size: 1rem;
   color: rgb(0, 0, 0);
   font-weight: 800;
+}
+label {
+  color: transparent;
+}
+.form-input,
+.select-input {
+  color: aliceblue;
+  font-weight: 600;
+  background-color: rgb(11, 43, 36);
+  width: 15rem;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  margin: 1rem 2rem;
+  padding: 1rem;
+}
+.form-input::placeholder {
+  font-variant: small-caps;
+  color: rgb(166, 177, 177);
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+h2 {
+  font-variant: small-caps;
+  margin: 3rem 2rem 1rem 2rem;
 }
